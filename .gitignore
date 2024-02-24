@@ -1,0 +1,31 @@
+# Node.js
+node_modules/
+logs/
+*.log
+
+# Angular
+dist/
+e2e/ # Si usas pruebas E2E con Protractor
+node_modules/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# System
+.DS_Store
+Thumbs.db
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+.pnpm
+.pnpm-store
+.pnp.local

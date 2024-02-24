@@ -1,0 +1,28 @@
+<h1 class="display-1 text-light">Rapy Aves</h1>
+<form *ngIf="view === 0" (submit)="login()" class="card p-4 d-flex flex-column justify-content-center align-items-center gap-2" action="">
+    <h1 class="display-5 text-center">Login</h1>
+    <div class="w-100">
+        <label for="">Correo</label>
+        <input [(ngModel)]="emailLogin" name="emailLogin" class="form-control" type="email" placeholder="Ingrese aquí su correo" required>
+    </div>
+    <div class="w-100">
+        <label for="">Contraseña</label>
+        <input [(ngModel)]="passLogin" name="passLogin" class="form-control" type="password" placeholder="Ingrese aquí su contraseña" required>
+    </div>
+    <button class="btn btn-warning" type="submit">Ingresar</button>
+    <a class="cursor-pointer" (click)="setView(1)">Crear Usuario</a>
+</form>
+
+<form *ngIf="view === 1" (submit)="register()" class="card p-4 d-flex flex-column justify-content-center align-items-center gap-2" action="">
+    <h1 class="display-5 text-center">Registrar Usuario</h1>
+    <div class="w-100">
+        <label for="">Correo</label>
+        <input [(ngModel)]="emailLogin" name="emailLogin" class="form-control" type="email" placeholder="Ingrese aquí su correo" required>
+    </div>
+    <div class="w-100">
+        <label for="">Contraseña</label>
+        <input [(ngModel)]="passLogin" name="passLogin" class="form-control" type="password" placeholder="Ingrese aquí su contraseña" required>
+    </div>
+    <button class="btn btn-warning" type="submit">Registrar</button>
+    <a class="cursor-pointer" (click)="setView(0)">Iniciar Sesión</a>
+</form>

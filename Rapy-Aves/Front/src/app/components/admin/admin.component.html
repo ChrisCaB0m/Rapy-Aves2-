@@ -1,0 +1,101 @@
+<app-menu [admin]="true"></app-menu>
+<main class="d-flex flex-column justify-content-center align-items-center">
+
+    <div class="w-100 row container p-3">
+        <div class="d-flex gap-2 align-items-center">
+            <h1 class="display-4">{{ title }}</h1>
+            <button *ngIf="title == 'Usuarios'" style="height: 50px;" class="btn btn-outline-success"
+                (click)="showModal(addUser, 'addUser')">Crear</button>
+            <button *ngIf="title == 'Productos'" style="height: 50px;" class="btn btn-outline-success"
+                (click)="showModal(addProduct, 'addProduct')">Crear</button>
+        </div>
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-borderless table-primary align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th *ngFor="let header of headers">{{ header }}</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr *ngFor="let record of records" class="table-primary">
+                        <td *ngFor="let value of getObjectValues(record)">{{ value }}</td>
+                        <td class="d-flex gap-1">
+                            <button class="btn btn-warning" (click)="modifyRecord(record, title == 'Usuarios' ? addUser : addProduct)">Modificar</button>
+                            <button class="btn btn-danger" (click)="deleteRecord(record)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<ng-template #addUser let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ isAddUser ? 'Crear' : 'Actualizar' }} Usuario</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div>
+                <label for="">Email</label>
+                <input [(ngModel)]="email" name="email" class="form-control" type="email" placeholder="Ingrese aquí el Email">
+            </div>
+            <div>
+                <label for="">Contraseña</label>
+                <input [(ngModel)]="pass" name="pass" class="form-control" type="password" placeholder="Ingrese aquí la Contraseña">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancelar</button>
+        <button type="submit" class="btn btn-outline-success" (click)="createUser()">{{ isAddUser ? 'Crear' : 'Actualizar' }}</button>
+    </div>
+</ng-template>
+
+<ng-template #addProduct let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ isAddProduct ? 'Crear' : 'Actualizar' }} Producto</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div>
+                <label for="">Nombre</label>
+                <input [(ngModel)]="productName" name="productName" class="form-control" type="text" placeholder="Ingrese aquí el Nombre" required>
+            </div>
+            <div>
+                <label for="">Precio</label>
+                <input [(ngModel)]="productPrice" (input)="validarInput($event)" name="productPrice" class="form-control" type="text"
+                placeholder="Ingrese aquí el Precio">
+            </div>
+            <div>
+                <label for="">Imagen</label>
+                <input [(ngModel)]="productImage" name="productImage" class="form-control" type="text"
+                    placeholder="Ingrese aquí la Imagen">
+            </div>
+            <div>
+                <label for="">Categoría</label>
+                <select [(ngModel)]="productCategory" (change)="setProductCategory($event)" class="form-control"
+                    name="productCategory" id="productCategory">
+                    <option selected disabled value="">Seleccione una Categoría</option>
+                    <option value="Bandeja">Bandeja</option>
+                    <option value="Sopa">Sopa</option>
+                    <option value="Pollo">Pollo</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Porciones">Porciones</option>
+                    <option value="Combo Personal">Combo Personal</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancelar</button>
+        <button type="submit" class="btn btn-outline-success" (click)="createProduct()">{{ isAddProduct ? 'Crear' : 'Actualizar' }}</button>
+    </div>
+</ng-template>
